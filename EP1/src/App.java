@@ -190,7 +190,8 @@ public class App {
         
         tabela.Print("Tabela vazia");
 
-        tabela.tentativa(0, 0, 0, pilha, pentaminos, 0);
+        // tabela.tentativa(0, 0, 0, pilha, pentaminos, 0);
+        tabela.tenta(0, 0, 0, pilha, pentaminos, 0);
 
         tabela.Print("Rodada 1");
 

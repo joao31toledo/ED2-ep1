@@ -108,6 +108,50 @@ public class Tabela {
         }
     }
 
+
+    public void f1(int linha, int coluna, int ponteiro)
+    {
+
+    }
+
+
+    public void tenta(int linha, int coluna,
+            int indexPeca, Pilha<Item> pilha,
+            Pentamino[] pentaminos,
+            int level)
+    {
+        System.out.println("\t\t\t\t" + level + "\ttentativa(l:" + linha + ", c:" + coluna + ", " + indexPeca + ", pilha(" + pilha.size() + "), ...)"); 
+
+        for (var k = linha; k < this.nLinhas; ++k)
+        {
+            System.out.println("k = " + k);
+            for (var j = coluna; j < this.nColunas; ++j)
+            {
+                System.out.println("\tj = " + j);
+                for (var i = indexPeca; i < pentaminos.length; ++i)
+                {
+                    Pentamino peca = pentaminos[i];
+                    System.out.println("\t\ti = " + i + " -> " + peca.nome);
+                    if (peca.verificaEncaixe(k, j, this)) 
+                    {
+                        // coloca peça
+                        // e empilha
+                        this.preencheTabela(peca, k, j);
+                        Print("ENCAIXOU A PEÇA " + peca.nome + " NA POSIÇÃO " + k + " X " + j);
+                        peca.setaOcupados(pentaminos);
+                        Item item = new Item();
+                        item.setItem(peca, k, j, indexPeca);
+                        pilha.push(item);
+
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
+
     public void tentativa(int linha, int coluna, int indexPeca, Pilha<Item> pilha, Pentamino[] pentaminos, int level) {
         Pentamino peca = pentaminos[indexPeca];
 
