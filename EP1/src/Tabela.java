@@ -13,6 +13,22 @@ public class Tabela {
 
     }
 
+    public void Print(String descr)
+    {
+        System.out.println(descr);
+        for (var i = 0; i < nLinhas; i++)
+        {
+            System.out.print(i);
+            System.out.print('\t');
+            for (var j = 0; j < nColunas; j++)
+            {
+                System.out.print(this.matriz[i][j]);
+                System.out.print('\t');
+            }
+            System.out.println();
+        }
+    }
+
     public void inicializaTabela() {
         // inicializa todas as casas da tabela como 0;
 
@@ -92,12 +108,14 @@ public class Tabela {
         }
     }
 
-    public void tentativa(int linha, int coluna, int indexPeca, Pilha<Item> pilha, Pentamino[] pentaminos) {
+    public void tentativa(int linha, int coluna, int indexPeca, Pilha<Item> pilha, Pentamino[] pentaminos, int level) {
         Pentamino peca = pentaminos[indexPeca];
 
+        System.out.println("\t\t\t\t" + level + "\ttentativa(l:" + linha + ", c:" + coluna + ", " + indexPeca + ", pilha(" + pilha.size() + "), ...)"); 
         if (peca.verificaEncaixe(linha, coluna, this) == true) {
-            System.out.println("ENCAIXOU A PEÇA " + peca.nome + " NA POSIÇÃO " + linha + " X " + coluna);
+            // System.out.println("ENCAIXOU A PEÇA " + peca.nome + " NA POSIÇÃO " + linha + " X " + coluna);
             this.preencheTabela(peca, linha, coluna);
+            Print("ENCAIXOU A PEÇA " + peca.nome + " NA POSIÇÃO " + linha + " X " + coluna);
             peca.setaOcupados(pentaminos);
             Item item = new Item();
             item.setItem(peca, linha, coluna, indexPeca);
@@ -112,29 +130,33 @@ public class Tabela {
             if (indexPeca < pentaminos.length)
                 indexPeca++;
 
-            tentativa(linha, coluna, indexPeca, pilha, pentaminos);
+            tentativa(linha, coluna, indexPeca, pilha, pentaminos, level + 1);
         }
 
         else {
+            // System.out.println("A peça " + peca.nome + " não cabe na posição " + linha + " x " + coluna);
             if (indexPeca < pentaminos.length - 1) {
                 indexPeca++;
-                tentativa(linha, coluna, indexPeca, pilha, pentaminos);
+                tentativa(linha, coluna, indexPeca, pilha, pentaminos, level + 1);
             } else if (coluna < this.nColunas - 1) {
                 coluna++;
                 indexPeca = 0;
-                tentativa(linha, coluna, indexPeca, pilha, pentaminos);
+                tentativa(linha, coluna, indexPeca, pilha, pentaminos, level + 1);
             } else if (linha < this.nLinhas - 1) {
                 linha++;
                 coluna = 0;
                 indexPeca = 0;
-                tentativa(linha, coluna, indexPeca, pilha, pentaminos);
+                tentativa(linha, coluna, indexPeca, pilha, pentaminos, level + 1);
             }
             else if(!pilha.isEmpty())
             {
                 Item item = pilha.pop();
                 this.limpaTabela(item.peca, item.linha, item.coluna);
                 item.peca.liberaPeca(pentaminos);
-                tentativa(item.linha, item.coluna, item.indexPeca + 1, pilha, pentaminos);
+
+                Print("Última peça removida: " + item.peca.nome + " de " + item.linha + " x " + item.coluna);
+
+                tentativa(item.linha, item.coluna, item.indexPeca + 1, pilha, pentaminos, level + 1);
             }
         }
     }
