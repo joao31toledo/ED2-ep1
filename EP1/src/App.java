@@ -185,9 +185,9 @@ public class App {
         // cria a tabela com as dimensões recebidas na entrada
         Tabela tabela = new Tabela(nLinhas, nColunas);
         tabela.inicializaTabela();
-        // tabela.preenchimentoInicial();
+        tabela.preenchimentoInicial();
         
-        tabela.tentativa(0, 0, 0, pilha, pentaminos);
+        tabela.tentativa(0, 0, 0, pentaminos, pilha);
 
 
         for (int x = 0; x < nLinhas; x++) {
