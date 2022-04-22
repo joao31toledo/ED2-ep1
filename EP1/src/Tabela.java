@@ -120,6 +120,25 @@ public class Tabela {
             Pentamino[] pentaminos,
             int level)
     {
+        if (tentaInterno(linha, coluna, indexPeca, pilha, pentaminos, level)
+        {
+            System.out.println("Parabéns!");
+        }
+        else
+        {
+            Item item = pilha.pop();
+            this.limpaTabela(item.peca, item.linha, item.coluna);
+            item.peca.liberaPeca(pentaminos);
+
+            Print("Última peça removida: " + item.peca.nome + "(" + item.indexPeca + ") de " + item.linha + " x " + item.coluna);
+            tentaInterno(item.linha, item.coluna, item.indexPeca + 1, pilha, pentaminos, level + 1);
+        }
+    }
+
+    public boolean tentaInterno(int linha, int coluna,
+            int indexPeca, Pilha<Item> pilha,
+            Pentamino[] pentaminos,
+            int level)
         System.out.println("\t\t\t\t" + level + "\ttentativa(l:" + linha + ", c:" + coluna + ", " + indexPeca + ", pilha(" + pilha.size() + "), ...)"); 
 
         for (var k = linha; k < this.nLinhas; ++k)
@@ -137,10 +156,10 @@ public class Tabela {
                         // coloca peça
                         // e empilha
                         this.preencheTabela(peca, k, j);
-                        Print("ENCAIXOU A PEÇA " + peca.nome + " NA POSIÇÃO " + k + " X " + j);
+                        Print("ENCAIXOU A PEÇA " + peca.nome + " (" + i + ") NA POSIÇÃO " + k + " X " + j);
                         peca.setaOcupados(pentaminos);
                         Item item = new Item();
-                        item.setItem(peca, k, j, indexPeca);
+                        item.setItem(peca, k, j, i);
                         pilha.push(item);
 
                         break;
@@ -148,6 +167,8 @@ public class Tabela {
                 }
             }
         }
+
+        return Pentamino.todosOcupados(pentaminos);
     }
 
 
