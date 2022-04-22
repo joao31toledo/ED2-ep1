@@ -70,7 +70,7 @@ public class Pentamino {
         }
     }
 
-    public boolean todosOcupados(Pentamino[] pentaminos)
+    public static boolean todosOcupados(Pentamino[] pentaminos)
     {
         for(int i = 0; i < pentaminos.length; i++)
         {

@@ -13,6 +13,22 @@ public class Tabela {
 
     }
 
+    public void Print(String descr)
+    {
+        System.out.println(descr);
+        for (var i = 0; i < nLinhas; i++)
+        {
+            System.out.print(i);
+            System.out.print('\t');
+            for (var j = 0; j < nColunas; j++)
+            {
+                System.out.print(this.matriz[i][j]);
+                System.out.print('\t');
+            }
+            System.out.println();
+        }
+    }
+
     public void inicializaTabela() {
         // inicializa todas as casas da tabela como 0;
 
@@ -92,90 +108,51 @@ public class Tabela {
         }
     }
 
-    public void tentativa(int linha, int coluna, int indexPeca, Pentamino[] pentaminos, Pilha<Item> pilha)
+
+
+    public void tenta(int linha, int coluna, int indexPeca, Pilha<Item> pilha, Pentamino[] pentaminos, int level)
     {
-        Pentamino peca = pentaminos[indexPeca];
-        
-        if(this.completa())
-        {
-            System.out.println("DEU CERTO PORRA!");
-        }
+        System.out.println("\t\t\t\t" + level + "\ttentativa(l:" + linha + ", c:" + coluna + ", " + indexPeca + "), ...)"); 
 
-        else if(peca.utilizado == true)
+        for (var k = linha; k < this.nLinhas; ++k)
         {
-            if(indexPeca < pentaminos.length -1)
+            //System.out.println("k = " + k);
+            for (var j = coluna; j < this.nColunas; ++j)
             {
-                indexPeca++;
-                tentativa(linha, coluna, indexPeca, pentaminos, pilha);
+                //System.out.println("\tj = " + j);
+                for (var i = indexPeca; i < pentaminos.length; ++i)
+                {
+                    Pentamino peca = pentaminos[i];
+                    //System.out.println("\t\ti = " + i + " -> " + peca.nome);
+                    if (peca.verificaEncaixe(k, j, this)) 
+                    {
+                        // coloca peça
+                        // e empilha
+                        this.preencheTabela(peca, k, j);
+                        Print("ENCAIXOU A PEÇA " + peca.nome + " (" + i + ") NA POSIÇÃO " + k + " X " + j);
+                        peca.setaOcupados(pentaminos);
+                        Item item = new Item();
+                        item.setItem(peca, k, j, i);
+                        pilha.push(item);
+
+                        break;
+                    }
+                }
             }
         }
-        
-        else
+
+        if(!this.completa())
         {
-            
-            if(peca.verificaEncaixe(linha, coluna, this) == true)
-            {
-                System.out.println("ENCAIXOU --------------> peça: " + peca.nome + " | index: " + indexPeca + " |linha: " + linha + " |coluna: " + coluna);
-                this.preencheTabela(peca, linha, coluna);
-                peca.setaOcupados(pentaminos);
-                Item item = new Item();
-                item.setItem(peca, linha, coluna, indexPeca);
-                pilha.push(item);
-                
+            Item item = pilha.pop();
+            this.limpaTabela(item.peca, item.linha, item.coluna);
+            item.peca.liberaPeca(pentaminos);
 
-                indexPeca = 0;
-                if(coluna < this.nColunas - 1)
-                {
-                    coluna++;
-                }
-                else if(linha < this.nLinhas - 1)
-                {
-                    coluna = 0;
-                    linha++;
-                }
-                tentativa(linha, coluna, indexPeca, pentaminos, pilha);
-                
-            }
-
-            
-            else{
-             //A PEÇA NAO ENCAIXA NA POSIÇÃO
-
-                // vai para a proxima peça, caso tenha;
-                if(indexPeca < pentaminos.length - 1)
-                {
-                    indexPeca++;
-                    this.tentativa(linha, coluna, indexPeca, pentaminos, pilha);
-                }
-                // se já leu todas as peças, vai para a coluna do lado ,caso tenha;
-                else if(coluna < this.nColunas - 1)
-                {
-                    indexPeca = 0;
-                    coluna++;
-                    this.tentativa(linha, coluna, indexPeca, pentaminos, pilha);
-                }
-                // se já leu todas as peças e todas as casas da coluna, vai para a próxima linha
-                else if(linha < this.nLinhas - 1)
-                {
-                    indexPeca = 0;
-                    coluna = 0;
-                    linha++;
-                    this.tentativa(linha, coluna, indexPeca, pentaminos, pilha);
-                }
-                // já leu todas as peças, todas as colunas e todas as linhas, então tem que fazer o backtrack.
-                else{
-                    Item item = new Item();
-                    item = pilha.pop();
-                    this.limpaTabela(item.peca, item.linha, item.coluna);
-                    item.peca.liberaPeca(pentaminos);
-                    System.out.println(" DESEMPILHOU ------------> peça: " + item.peca.nome + " | index: " + item.indexPeca + " |linha: " + item.linha + " |coluna: " + item.coluna);
-                    indexPeca = item.indexPeca + 1;
-                    this.tentativa(item.linha, item.coluna, indexPeca, pentaminos, pilha);
-                }
-
-                
-            }
+            Print("Última peça removida: " + item.peca.nome + "(" + item.indexPeca + ") de " + item.linha + " x " + item.coluna);
+            tenta(item.linha, item.coluna, item.indexPeca + 1, pilha, pentaminos, level + 1);
         }
-        
     }
+
+
+
 }
+

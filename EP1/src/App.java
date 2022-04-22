@@ -185,10 +185,15 @@ public class App {
         // cria a tabela com as dimensões recebidas na entrada
         Tabela tabela = new Tabela(nLinhas, nColunas);
         tabela.inicializaTabela();
-        tabela.preenchimentoInicial();
+        // tabela.preenchimentoInicial();
+        //
         
-        tabela.tentativa(0, 0, 0, pentaminos, pilha);
+        tabela.Print("Tabela vazia");
 
+        // tabela.tentativa(0, 0, 0, pilha, pentaminos, 0);
+        tabela.tenta(0, 0, 0, pilha, pentaminos, 0);
+
+        tabela.Print("Rodada 1");
 
         for (int x = 0; x < nLinhas; x++) {
             for (int y = 0; y < nColunas; y++) {
