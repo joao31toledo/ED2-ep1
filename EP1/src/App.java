@@ -183,7 +183,7 @@ public class App {
         Pentamino[] X = {X1};
 
         // array com todos os pentaminos
-        Pentamino[][] pentaminos = {I, L, V, P, T, C, Z, N, Y, W, F, X};
+        Pentamino[][] pentaminos = {I, P, Y, V, X, L, T, W, N, F, Z, C};
 
         Pilha<Item> pilha = new Pilha<Item>(); // Cria a pilha que servirá de base para o backtrack;
 
@@ -204,14 +204,16 @@ public class App {
         
         tabela.Print("Tabela vazia");
 
-
-        tabela.Print("Rodada 1");
-
-        for (int x = 0; x < nLinhas; x++) {
-            for (int y = 0; y < nColunas; y++) {
-                System.out.print(tabela.matriz[x][y]);
-            }
-            System.out.println("");
+        if (tabela.colocaPeca(pentaminos, pilha))
+        {
+            tabela.Print("Final, sucesso");
+            System.out.println("Funcionou!");
         }
+        else
+        {
+            tabela.Print("Final, falha");
+            System.out.println("Nenhuma solução encontrada");
+        }
+
     }
 }

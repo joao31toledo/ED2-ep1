@@ -1,5 +1,6 @@
 
 import java.util.Scanner;
+import java.util.*;
 
 public class Tabela {
     int nLinhas;
@@ -108,6 +109,89 @@ public class Tabela {
         }
     }
 
+
+    public boolean colocaPeca(Pentamino[][] pecasDisponiveis, Pilha<Item> pilha)
+    {
+        /*
+         *   peça <- primeira peça disponível
+         *   para cada rotação
+         *      para cada linha
+         *          para cada coluna
+         *              se pode colocar a peça na linha, coluna:
+         *                  coloca peça
+         *                  empilha ???
+         *                  define como ocupado ???
+         *                  if (colocaPeca(peçasDisponíveis - peça))
+         *                      // achou uma solução
+         *                      break
+         *                  else
+         *                      desempilha
+         *                      remove peça
+         *                      libera 
+         *
+         */
+
+        if (pecasDisponiveis.length > 0)
+        {
+            Pentamino[] rotacoes = pecasDisponiveis[0];
+
+            // this.Print("Peça: " + rotacoes[0].simbolo + "; peças disponíveis: " + pecasDisponiveis.length);
+
+            for (int r = 0; r < rotacoes.length; r++)
+            {
+                Pentamino peca = rotacoes[r];
+
+                // System.out.println("\t\tTentando peça " + peca.nome + "...");
+
+                // TODO: otimizar 
+                int ultimaLinhaParaPeca = this.nLinhas;// - peca.altura + 1;
+                int ultimaColunaParaPeca = this.nColunas;// - peca.largura + 1;
+
+                for (int linha = 0; linha < ultimaLinhaParaPeca; ++linha)
+                {
+                    for (int coluna = 0; coluna < ultimaColunaParaPeca; ++coluna)
+                    {
+                        if (peca.verificaEncaixe(linha, coluna, this))
+                        {
+                            // coloca a peça no tabuleiro
+                            this.preencheTabela(peca, linha, coluna);
+
+                            // empilha
+                            Item item = new Item();
+                            item.setItem(peca, linha, coluna, 0);
+                            pilha.push(item);
+
+                            // define como ocupado
+                            // peca.setaOcupados(pecasDisponiveis);
+
+                            Pentamino[][] novasPecasDisponiveis = Arrays.copyOfRange(pecasDisponiveis, 1, pecasDisponiveis.length);
+
+                            if (colocaPeca(novasPecasDisponiveis, pilha))
+                            {
+                                // sucesso!
+                                this.Print("Sucesso!");
+                                return true;
+                            }
+
+                            // desempilha
+                            item = pilha.pop();
+
+                            // remove a peça do tabuleiro
+                            this.limpaTabela(item.peca, item.linha, item.coluna);
+                        }
+                        // else 
+                        // {
+                        //     System.out.println("\t\t\t\t\tPeça " + peca.nome + " não cabe em " + linha + ", " + coluna);
+                        // }
+                    }
+
+                    // System.out.println("\t\t\t\t\t\tPróxima linha: " + (linha + 1));
+                }
+            }
+        }
+
+        return false;
+    }
 
     
 }
