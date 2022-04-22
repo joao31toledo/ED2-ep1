@@ -1,0 +1,129 @@
+coloca(pecas, tabuleiro)
+{
+    para cada TIPO de peça:
+        para cada ROTAÇÂO desse TIPO de peça:
+            se a ROTAÇÂO já foi usada, chama a proxima;
+            se todas as ROTAÇÔES já foram usadas, chama o próximo TIPO de peça;
+                pega o primeiro TIPO de peça não utilizado;
+        
+    p/ cada ROTAÇÂO da peça:
+        p/ cada linha:
+            p/cada coluna:
+                verifica(ROTAÇÂO, LINHA, COLUNA)
+                    preenche;
+                    
+                    RECURSÃO -> coloca(peças, tabuleiro)
+                
+                remove a peça e desempilha;
+}
+
+----------------------------------------------------
+
+PEÇAS:
+{[V1, V2, V3, V4], [L1,L2,L3,L4,L5,L6,L7,L8],[P1,P2,P3,P4,P5,P6,P7,P8]}
+
+tipos de peça: 3;
+
+MATRIZ:
+v * *
+v * *
+v v V
+* * L
+L L L
+
+PILHA:
+    l2, 3, 0
+    v1, 0, 0
+
+------------------------------------------------------
+coloca(peças, tabuleiro)
+    for TIPO = 0
+        ROTAÇÂO = 0
+            peça[0][0] utilizada? não;
+
+    peça = V;
+
+    para cada ROTAÇÂO de V:
+        rotação = 0;
+            linha = 0;
+                coluna = 0:
+                    verifica(v1, 0, 0) -> sim
+                        preenche.
+                        empilha.
+                        ocupa V;
+
+                        RECURSÂO: coloca(peças, tabuleiro)
+----------------------------------------------------------
+    for TIPO = 0;
+        ROTAÇÂO = 0;
+            peça [0][0] utilizada? sim;
+                break;
+    
+        TIPO = 1;
+            ROTAÇÂO = 0;
+                peça[1][0] utilizada? não;
+        
+        peça = L;
+
+        para cada ROTAÇÂO de L:
+            rotação = 0;
+                linha = 0;
+                    coluna =  0;
+                        verifica(L1, 0, 0) -> não;
+                
+                    coluna = 1;
+                        verifica(L1, 0, 1) -> não;
+                ...
+                linha = 4;
+                    coluna = 2;
+                        verifica(L1, 4, 2) -> não;
+        
+            rotação = 1;
+                linha = 0;
+                    coluna = 0;
+                        verifica(L2, 0, 0) -> não;
+                        ....
+                linha = 3;
+                    coluna = 0;
+                        verifica(L2, 3, 0) -> sim;
+                            preenche
+                            empilha
+                            ocupa
+                            RECURSÂO
+--------------------------------------------------
+    TIPO = 0;
+        ROTAÇÃO = 0
+            peça[0][0] utilizada? sim
+                break;
+    
+    TIPO = 1;
+        ROTAÇÂO = 0
+            peça[0][0] utilizada? sim
+                break;
+    
+    TIPO = 2;
+        ROTAÇÂO = 0;
+            peça[0][0] utilizada? não;
+    
+    peça = P;
+
+    para cada ROTAÇÂO de P:
+        rotação = 0;
+            linha = 0;
+                coluna = 0;
+                    verifica(p1, 0, 0) -> não;
+            ...
+            linha = 4;
+                coluna = 2;
+                    verifica(p1, 4, 2) -> não;
+        ...
+        rotação = 7;
+            linha = 4;
+                coluna = 2;
+                    verifica(p8, 4, 2) -> não;
+
+    acabaram as rotações;
+    desempilha(L2, 3, 0);
+    
+        
+        

@@ -10,6 +10,8 @@ public class App {
         Pentamino I2 = new Pentamino();
         I2.setPentamino("I2", 'I', 1, 5, "11111", false);
 
+        Pentamino[] I = {I1, I2};
+
         // Pentaminos do tipo L
         Pentamino L1 = new Pentamino();
         L1.setPentamino("L1", 'L', 4, 2, "10101011", false);
@@ -28,6 +30,9 @@ public class App {
         Pentamino L8 = new Pentamino();
         L8.setPentamino("L8", 'L', 2, 4, "11110001", false);
 
+        Pentamino[] L = {L1, L2, L3, L4, L5, L6, L7 ,L8};
+
+
         // Pentaminos do tipo V
         Pentamino V1 = new Pentamino();
         V1.setPentamino("V1", 'V', 3, 3, "100100111", false);
@@ -37,6 +42,9 @@ public class App {
         V3.setPentamino("V3", 'V', 3, 3, "111001001", false);
         Pentamino V4 = new Pentamino();
         V4.setPentamino("V4", 'V', 3, 3, "111100100", false);
+
+        Pentamino[] V = {V1, V2, V3, V4};
+
 
         // Pentaminos do tipo P
         Pentamino P1 = new Pentamino();
@@ -56,6 +64,8 @@ public class App {
         Pentamino P8 = new Pentamino();
         P8.setPentamino("P8", 'P', 2, 3, "011111", false);
 
+        Pentamino[] P = {P1, P2, P3, P4, P5, P6, P7, P8};
+
         // Pentaminos do tipo T
         Pentamino T1 = new Pentamino();
         T1.setPentamino("T1", 'T', 3, 3, "111010010", false);
@@ -65,6 +75,8 @@ public class App {
         T3.setPentamino("T3", 'T', 3, 3, "010010111", false);
         Pentamino T4 = new Pentamino();
         T4.setPentamino("T4", 'T', 3, 3, "001111001", false);
+
+        Pentamino[] T = {T1, T2, T3, T4};
 
         // Pentaminos do tipo C
         Pentamino C1 = new Pentamino();
@@ -76,6 +88,8 @@ public class App {
         Pentamino C4 = new Pentamino();
         C4.setPentamino("C4", 'C', 3, 2, "111011", false);
 
+        Pentamino[] C = {C1, C2, C3, C4};
+
         // Pentaminos do tipo Z
         Pentamino Z1 = new Pentamino();
         Z1.setPentamino("Z1", 'Z', 3, 3, "110010011", false);
@@ -85,6 +99,8 @@ public class App {
         Z3.setPentamino("Z3", 'Z', 3, 3, "011010110", false);
         Pentamino Z4 = new Pentamino();
         Z4.setPentamino("Z4", 'Z', 3, 3, "100111001", false);
+
+        Pentamino[] Z = {Z1, Z2, Z3, Z4};
 
         // Pentaminos do tipo N
         Pentamino N1 = new Pentamino();
@@ -104,6 +120,9 @@ public class App {
         Pentamino N8 = new Pentamino();
         N8.setPentamino("N8", 'N', 2, 4, "01111100", false);
 
+        Pentamino[] N = {N1, N2, N3, N4, N5, N6, N7, N8};
+
+
         // Pentaminos do tipo y
         Pentamino Y1 = new Pentamino();
         Y1.setPentamino("Y1", 'Y', 4, 2, "10111010", false);
@@ -122,6 +141,8 @@ public class App {
         Pentamino Y8 = new Pentamino();
         Y8.setPentamino("Y8", 'Y', 2, 4, "00101111", false);
 
+        Pentamino[] Y = {Y1 ,Y2, Y3, Y4,Y5, Y6, Y7, Y8};
+
         // Pentaminos do tipo W
         Pentamino W1 = new Pentamino();
         W1.setPentamino("W1", 'W', 3, 3, "100110011", false);
@@ -131,6 +152,8 @@ public class App {
         W3.setPentamino("W3", 'W', 3, 3, "110011001", false);
         Pentamino W4 = new Pentamino();
         W4.setPentamino("W4", 'W', 3, 3, "011110100", false);
+
+        Pentamino[] W = {W1, W2, W3, W4};
 
         // Pentaminos do tipo F
         Pentamino F1 = new Pentamino();
@@ -150,27 +173,20 @@ public class App {
         Pentamino F8 = new Pentamino();
         F8.setPentamino("F8", 'F', 3, 3, "001111010", false);
 
+        Pentamino[] F = {F1, F2, F3, F4, F5, F6, F7, F8};
+
+
         // PENTAMINO X
-        Pentamino X = new Pentamino();
-        X.setPentamino("X", 'X', 3, 3, "010111010", false);
+        Pentamino X1 = new Pentamino();
+        X1.setPentamino("X", 'X', 3, 3, "010111010", false);
+
+        Pentamino[] X = {X1};
 
         // array com todos os pentaminos
-        Pentamino[] pentaminos = {
-                I1, I2,
-                L1, L2, L3, L4, L5, L6, L7, L8,
-                V1, V2, V3, V4,
-                P1, P2, P3, P4, P5, P6, P7, P8,
-                T1, T2, T3, T4,
-                C1, C2, C3, C4,
-                Z1, Z2, Z3, Z4,
-                N1, N2, N3, N4, N5, N6, N7, N8,
-                Y1, Y2, Y3, Y4, Y5, Y6, Y7, Y8,
-                W1, W2, W3, W4,
-                F1, F2, F3, F4, F5, F6, F7, F8,
-                X };
+        Pentamino[][] pentaminos = {I, L, V, P, T, C, Z, N, Y, W, F, X};
 
         Pilha<Item> pilha = new Pilha<Item>(); // Cria a pilha que servirá de base para o backtrack;
-        Item item = new Item();
+
         Scanner scan = new Scanner(System.in); // Cria um scanner para ler a entrada do usuario;
 
         System.out.println("Quantas linhas terá a tabela?");
@@ -179,8 +195,6 @@ public class App {
         System.out.println("Quantas colunas terá a tabela?");
         int nColunas = scan.nextInt();
 
-        // peça que será utilizada para facilitar o programa;
-        Pentamino peca = new Pentamino();
 
         // cria a tabela com as dimensões recebidas na entrada
         Tabela tabela = new Tabela(nLinhas, nColunas);
@@ -190,8 +204,6 @@ public class App {
         
         tabela.Print("Tabela vazia");
 
-        // tabela.tentativa(0, 0, 0, pilha, pentaminos, 0);
-        tabela.tenta(0, 0, 0, pilha, pentaminos, 0);
 
         tabela.Print("Rodada 1");
 

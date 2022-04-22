@@ -109,50 +109,6 @@ public class Tabela {
     }
 
 
-
-    public void tenta(int linha, int coluna, int indexPeca, Pilha<Item> pilha, Pentamino[] pentaminos, int level)
-    {
-        System.out.println("\t\t\t\t" + level + "\ttentativa(l:" + linha + ", c:" + coluna + ", " + indexPeca + "), ...)"); 
-
-        for (var k = linha; k < this.nLinhas; ++k)
-        {
-            //System.out.println("k = " + k);
-            for (var j = coluna; j < this.nColunas; ++j)
-            {
-                //System.out.println("\tj = " + j);
-                for (var i = indexPeca; i < pentaminos.length; ++i)
-                {
-                    Pentamino peca = pentaminos[i];
-                    //System.out.println("\t\ti = " + i + " -> " + peca.nome);
-                    if (peca.verificaEncaixe(k, j, this)) 
-                    {
-                        // coloca peça
-                        // e empilha
-                        this.preencheTabela(peca, k, j);
-                        Print("ENCAIXOU A PEÇA " + peca.nome + " (" + i + ") NA POSIÇÃO " + k + " X " + j);
-                        peca.setaOcupados(pentaminos);
-                        Item item = new Item();
-                        item.setItem(peca, k, j, i);
-                        pilha.push(item);
-
-                        break;
-                    }
-                }
-            }
-        }
-
-        if(!this.completa())
-        {
-            Item item = pilha.pop();
-            this.limpaTabela(item.peca, item.linha, item.coluna);
-            item.peca.liberaPeca(pentaminos);
-
-            Print("Última peça removida: " + item.peca.nome + "(" + item.indexPeca + ") de " + item.linha + " x " + item.coluna);
-            tenta(item.linha, item.coluna, item.indexPeca + 1, pilha, pentaminos, level + 1);
-        }
-    }
-
-
-
+    
 }
 
