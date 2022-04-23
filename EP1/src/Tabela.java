@@ -188,9 +188,10 @@ public class Tabela {
                     // System.out.println("\t\t\t\t\t\tPróxima linha: " + (linha + 1));
                 }
             }
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     
