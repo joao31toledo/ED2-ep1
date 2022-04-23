@@ -208,6 +208,13 @@ public class App {
         {
             tabela.Print("Final, sucesso");
             System.out.println("Funcionou!");
+
+            while (!pilha.isEmpty())
+            {
+                var item = pilha.pop();
+                System.out.println("Peça " + item.peca.simbolo + 
+                        " em " + item.linha + ", " + item.coluna);
+            }
         }
         else
         {

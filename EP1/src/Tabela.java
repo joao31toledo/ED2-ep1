@@ -7,16 +7,24 @@ public class Tabela {
     int nColunas;
     char[][] matriz;
 
+    long tentativas;
+
     public Tabela(int nLinhas, int nColunas) {
         this.nLinhas = nLinhas;
         this.nColunas = nColunas;
         this.matriz = new char[this.nLinhas][this.nColunas];
 
+        this.tentativas = 0;
+    }
+
+    public long getTentativas()
+    {
+        return this.tentativas;
     }
 
     public void Print(String descr)
     {
-        System.out.println(descr);
+        System.out.println(descr + " (" + this.tentativas + ")");
         for (var i = 0; i < nLinhas; i++)
         {
             System.out.print(i);
@@ -90,6 +98,8 @@ public class Tabela {
             }
 
         }
+
+        ++this.tentativas;
     }
 
     public void limpaTabela(Pentamino peca, int i, int j) {
@@ -143,7 +153,6 @@ public class Tabela {
 
                 // System.out.println("\t\tTentando peça " + peca.nome + "...");
 
-                // TODO: otimizar 
                 int ultimaLinhaParaPeca = this.nLinhas - peca.altura + 1;
                 int ultimaColunaParaPeca = this.nColunas - peca.largura + 1;
 
@@ -164,7 +173,7 @@ public class Tabela {
                             if (colocaPeca(novasPecasDisponiveis, pilha))
                             {
                                 // sucesso!
-                                this.Print("Sucesso!");
+                                // this.Print("Sucesso!");
                                 return true;
                             }
 
