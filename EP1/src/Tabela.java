@@ -120,7 +120,6 @@ public class Tabela {
          *              se pode colocar a peça na linha, coluna:
          *                  coloca peça
          *                  empilha ???
-         *                  define como ocupado ???
          *                  if (colocaPeca(peçasDisponíveis - peça))
          *                      // achou uma solução
          *                      break
@@ -134,6 +133,7 @@ public class Tabela {
         if (pecasDisponiveis.length > 0)
         {
             Pentamino[] rotacoes = pecasDisponiveis[0];
+            Pentamino[][] novasPecasDisponiveis = Arrays.copyOfRange(pecasDisponiveis, 1, pecasDisponiveis.length);
 
             // this.Print("Peça: " + rotacoes[0].simbolo + "; peças disponíveis: " + pecasDisponiveis.length);
 
@@ -144,8 +144,8 @@ public class Tabela {
                 // System.out.println("\t\tTentando peça " + peca.nome + "...");
 
                 // TODO: otimizar 
-                int ultimaLinhaParaPeca = this.nLinhas;// - peca.altura + 1;
-                int ultimaColunaParaPeca = this.nColunas;// - peca.largura + 1;
+                int ultimaLinhaParaPeca = this.nLinhas - peca.altura + 1;
+                int ultimaColunaParaPeca = this.nColunas - peca.largura + 1;
 
                 for (int linha = 0; linha < ultimaLinhaParaPeca; ++linha)
                 {
@@ -161,11 +161,6 @@ public class Tabela {
                             item.setItem(peca, linha, coluna, 0);
                             pilha.push(item);
 
-                            // define como ocupado
-                            // peca.setaOcupados(pecasDisponiveis);
-
-                            Pentamino[][] novasPecasDisponiveis = Arrays.copyOfRange(pecasDisponiveis, 1, pecasDisponiveis.length);
-
                             if (colocaPeca(novasPecasDisponiveis, pilha))
                             {
                                 // sucesso!
@@ -179,13 +174,7 @@ public class Tabela {
                             // remove a peça do tabuleiro
                             this.limpaTabela(item.peca, item.linha, item.coluna);
                         }
-                        // else 
-                        // {
-                        //     System.out.println("\t\t\t\t\tPeça " + peca.nome + " não cabe em " + linha + ", " + coluna);
-                        // }
                     }
-
-                    // System.out.println("\t\t\t\t\t\tPróxima linha: " + (linha + 1));
                 }
             }
             return false;
