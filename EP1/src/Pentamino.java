@@ -24,23 +24,22 @@ public class Pentamino {
 
              return false;
 
-        String conteudo = this.conteudo;
-
         // se o tamanho da peça vai além das dimensões da tabela, então não pode ser
         // utilizada.
         if (j + this.largura > tabela.nColunas || i + this.altura > tabela.nLinhas) {
             return false;
 
         } else {
+            int pos = 0;
             for (int linha = i; linha < this.altura + i; linha++) {
                 for (int coluna = j; coluna < this.largura + j; coluna++) {
                     // se a tabela já está preenchida (ou não está vazia) e a peça possui um pedaço
                     // nessa posição, então não pode ser colocada.
-                    if (tabela.matriz[linha][coluna] != ('0') && conteudo.charAt(0) == '1')
+                    if (tabela.matriz[linha][coluna] != ('0') && this.conteudo.charAt(pos) == '1')
                         return false;
 
                     // se esse primeiro pedaço pode ser colocado, avalia o proximo.
-                    conteudo = conteudo.substring(1);
+                    pos = pos + 1;
                 }
 
             }

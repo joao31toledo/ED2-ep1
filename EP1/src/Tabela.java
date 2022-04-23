@@ -77,16 +77,16 @@ public class Tabela {
     public void preencheTabela(Pentamino peca, int i, int j) {
         // preenche a tabela com a peça que foi selecionada.
 
-        String conteudo = peca.conteudo;
         // Lê a partir da posicao recebida as dimensões da peça.
+        int pos = 0;
         for (int linha = i; linha < peca.altura + i; linha++) {
             for (int coluna = j; coluna < peca.largura + j; coluna++) {
                 // insere o simbolo da peça se a posição na tabela está livre.
 
-                if (conteudo.charAt(0) == '1') {
+                if (peca.conteudo.charAt(pos) == '1') {
                     this.matriz[linha][coluna] = peca.simbolo;
                 }
-                conteudo = conteudo.substring(1);
+                pos = pos + 1;
             }
 
         }
@@ -94,16 +94,16 @@ public class Tabela {
 
     public void limpaTabela(Pentamino peca, int i, int j) {
 
-        String conteudo = peca.conteudo;
         // Lê a partir da posicao recebida as dimensões da peça.
+        int pos = 0;
         for (int linha = i; linha < peca.altura + i; linha++) {
             for (int coluna = j; coluna < peca.largura + j; coluna++) {
                 // insere o simbolo da peça se a posição na tabela está livre.
 
-                if (conteudo.charAt(0) == '1' && this.matriz[linha][coluna] == peca.simbolo) {
+                if (peca.conteudo.charAt(pos) == '1' && this.matriz[linha][coluna] == peca.simbolo) {
                     this.matriz[linha][coluna] = '0';
                 }
-                conteudo = conteudo.substring(1);
+                pos = pos + 1;
             }
 
         }
